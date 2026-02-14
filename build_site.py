@@ -859,6 +859,15 @@ def remove_see_also(html):
     return re.sub(r'<p>See also:.*?</p>', '', html, flags=re.DOTALL)
 
 
+def remove_context_and_duplicate_heading(html, note_name):
+    """Remove <context>...</context> paragraphs and duplicate h1 heading."""
+    # Remove <p>&lt;context&gt;...&lt;/context&gt;</p>
+    html = re.sub(r'<p>&lt;context&gt;.*?&lt;/context&gt;</p>\s*', '', html, flags=re.DOTALL)
+    # Remove the first <h1> that duplicates the note title (already shown as <h2>)
+    html = re.sub(r'<h1>' + re.escape(note_name) + r'</h1>\s*', '', html, count=1)
+    return html
+
+
 def convert_wikilinks_to_ref_links(html):
     """Convert [[wikilinks]] to reference page links."""
     def replace_wl(m):
@@ -892,6 +901,7 @@ def build_reference_pages():
         html_content = md(cleaned)
         html_content = convert_wikilinks_to_ref_links(html_content)
         html_content = remove_see_also(html_content)
+        html_content = remove_context_and_duplicate_heading(html_content, name)
         html_content = fix_ref_links_from_subdir(html_content)
 
         # Determine which chapter page links back
