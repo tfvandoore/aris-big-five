@@ -877,6 +877,22 @@ def convert_wikilinks_to_ref_links(html):
     return re.sub(r'\[\[([^\]]+)\]\]', replace_wl, html)
 
 
+# Set of valid reference slugs (pages that actually exist)
+VALID_REF_SLUGS = {slugify(name) for name in REFERENCED_FILES}
+
+
+def remove_broken_ref_links(html):
+    """Replace ref links to non-existent pages with plain text spans."""
+    def replace_if_broken(m):
+        href = m.group(1)
+        text = m.group(2)
+        slug = href.replace('.html', '')
+        if slug in VALID_REF_SLUGS:
+            return m.group(0)  # keep valid links
+        return text  # replace with plain text (no tag at all)
+    return re.sub(r'<a href="([^"]+\.html)" class="ref">([^<]+)</a>', replace_if_broken, html)
+
+
 def build_reference_pages():
     """Generate individual reference pages and the references index."""
     REF_DIR.mkdir(parents=True, exist_ok=True)
@@ -900,6 +916,7 @@ def build_reference_pages():
         cleaned = strip_version_notes(raw)
         html_content = md(cleaned)
         html_content = convert_wikilinks_to_ref_links(html_content)
+        html_content = remove_broken_ref_links(html_content)
         html_content = remove_see_also(html_content)
         html_content = remove_context_and_duplicate_heading(html_content, name)
         html_content = fix_ref_links_from_subdir(html_content)
