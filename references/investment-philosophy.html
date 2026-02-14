@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Philosophy — Ari's Big Five</title>
+    <meta name="description" content="Source note: Investment Philosophy">
+    <style>
+:root {
+    --text: #1a1a1a;
+    --text-secondary: #555;
+    --bg: #fafaf8;
+    --bg-card: #fff;
+    --accent: #4a7fb5;
+    --accent-hover: #3a6a9e;
+    --accent-light: #eaf2fb;
+    --border: #dde3ea;
+    --quote-bg: #f8f6f1;
+    --quote-border: #c9a96e;
+    --ref: #3a6a9e;
+    --ref-bg: #e8f0fa;
+    --ref-hover: #d5e4f4;
+    --sidebar-bg: #f4f7fa;
+    --sidebar-width: 280px;
+    --hero-gradient-1: #4a7fb5;
+    --hero-gradient-2: #2d4f72;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 18px; }
+
+body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+    width: var(--sidebar-width);
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    padding: 1.5rem 0;
+    z-index: 100;
+}
+
+.sidebar-brand {
+    padding: 0.5rem 1.5rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1rem;
+}
+
+.sidebar-brand a {
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.sidebar-brand .brand-sub {
+    display: block;
+    font-family: 'Georgia', serif;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-top: 0.2rem;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar nav li {
+    margin: 0;
+}
+
+.sidebar nav a {
+    display: block;
+    padding: 0.55rem 1.5rem;
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+    font-size: 0.82rem;
+    color: var(--text);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+}
+
+.sidebar nav a:hover {
+    background: var(--accent-light);
+    color: var(--accent);
+}
+
+.sidebar nav a.active {
+    background: var(--accent-light);
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 600;
+}
+
+.sidebar nav .nav-label {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+.sidebar-ref-link {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border);
+    margin-top: 1rem;
+}
+
+.sidebar-ref-link a {
+    display: block;
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    background: var(--accent-light);
+    border-radius: 6px;
+    text-align: center;
+    transition: background 0.2s;
+}
+
+.sidebar-ref-link a:hover {
+    background: var(--ref-hover);
+}
+
+/* ── Mobile menu toggle ── */
+.menu-toggle {
+    display: none;
+    position: fixed;
+    top: 1rem; left: 1rem;
+    z-index: 200;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* ── Main content ── */
+.main-content {
+    margin-left: var(--sidebar-width);
+    min-height: 100vh;
+}
+
+/* ── Hero ── */
+.hero {
+    background: linear-gradient(135deg, var(--hero-gradient-1), var(--hero-gradient-2));
+    color: #fff;
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.4rem;
+}
+
+.hero .subtitle {
+    font-style: italic;
+    font-size: 1.05rem;
+    opacity: 0.85;
+    margin-bottom: 1rem;
+}
+
+.hero .epigraph {
+    max-width: 600px;
+    margin: 0 auto;
+    font-style: italic;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 1.25rem;
+}
+
+/* ── Container ── */
+.container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* ── Chapter content ── */
+.chapter-content {
+    max-width: 720px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+}
+
+.chapter-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.chapter-number {
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+}
+
+.chapter-header h2 {
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 0.3rem;
+}
+
+.chapter-header .chapter-sub {
+    font-style: italic;
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+/* ── Typography ── */
+h3 {
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin: 2.5rem 0 1rem;
+    color: var(--text);
+}
+
+p { margin-bottom: 1.25rem; }
+strong { font-weight: 700; }
+em { font-style: italic; }
+
+ul, ol { margin-bottom: 1.25rem; padding-left: 1.5rem; }
+li { margin-bottom: 0.3rem; }
+
+/* ── Vault references ── */
+.ref {
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+    font-size: 0.82rem;
+    background: var(--ref-bg);
+    color: var(--ref);
+    padding: 0.15em 0.5em;
+    border-radius: 3px;
+    white-space: nowrap;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.ref:hover { background: var(--ref-hover); }
+a.ref { text-decoration: none; }
+
+/* ── Blockquotes ── */
+blockquote {
+    border-left: 3px solid var(--quote-border);
+    background: var(--quote-bg);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    border-radius: 0 6px 6px 0;
+    font-style: italic;
+}
+
+blockquote p { margin-bottom: 0; }
+
+blockquote .attribution {
+    display: block;
+    text-align: right;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    font-style: normal;
+}
+
+/* ── Equation ── */
+.equation {
+    text-align: center;
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.03em;
+    color: var(--accent);
+    margin: 1.5rem 0;
+    font-weight: 600;
+}
+
+/* ── Diamond items ── */
+.diamond-item {
+    padding-left: 1.2rem;
+    border-left: 3px solid var(--accent-light);
+    margin-bottom: 1.25rem;
+}
+
+/* ── Observation items ── */
+.observation {
+    padding-left: 1.2rem;
+    border-left: 3px solid var(--quote-border);
+    margin-bottom: 1.25rem;
+}
+
+/* ── Arc list (intro) ── */
+.arc-list { list-style: none; padding: 0; margin: 1.5rem 0; }
+
+.arc-list li {
+    margin-bottom: 0.4rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.arc-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0.6em;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+.arc-flow {
+    text-align: center;
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin: 1.5rem 0 2rem;
+}
+
+/* ── Dividers ── */
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 3rem auto;
+    max-width: 720px;
+}
+
+/* ── Page nav (prev/next) ── */
+.page-nav {
+    display: flex;
+    justify-content: space-between;
+    max-width: 720px;
+    margin: 3rem auto 2rem;
+    padding: 0 1.5rem;
+    gap: 1rem;
+}
+
+.page-nav a {
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+    font-size: 0.85rem;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    transition: all 0.2s;
+    max-width: 48%;
+}
+
+.page-nav a:hover {
+    background: var(--accent-light);
+    border-color: var(--accent);
+}
+
+.page-nav .prev::before { content: "\2190  "; }
+.page-nav .next::after { content: "  \2192"; }
+.page-nav .spacer { flex: 1; }
+
+/* ── Footer ── */
+.footer {
+    text-align: center;
+    padding: 2rem 1.5rem 3rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+/* ── Reference note page ── */
+.note-content {
+    max-width: 720px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem;
+}
+
+.note-content h2 {
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+}
+
+.note-content h1 { font-size: 1.4rem; font-weight: 400; margin: 1.5rem 0 1rem; }
+.note-content h3 { font-size: 1.15rem; font-weight: 700; margin: 2rem 0 0.75rem; }
+.note-content h4 { font-size: 1rem; font-weight: 700; margin: 1.5rem 0 0.5rem; }
+
+.back-link-bar {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 0;
+}
+
+.back-link-bar a {
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+    font-size: 0.85rem;
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.back-link-bar a:hover { text-decoration: underline; }
+
+/* ── References index cards ── */
+.ref-grid {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.ref-chapter-group {
+    margin-bottom: 2.5rem;
+}
+
+.ref-chapter-label {
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    background: var(--accent-light);
+    display: inline-block;
+    padding: 0.35em 1em;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+}
+
+.ref-list {
+    list-style: none;
+    padding: 0;
+}
+
+.ref-list li {
+    margin-bottom: 0.4rem;
+}
+
+.ref-list a {
+    font-size: 0.95rem;
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.ref-list a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+
+/* ── CTA button ── */
+.cta-button {
+    display: inline-block;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: var(--accent);
+    color: #fff;
+    padding: 0.75em 2em;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: background 0.2s;
+}
+
+.cta-button:hover { background: var(--accent-hover); }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+        box-shadow: none;
+    }
+    .sidebar.open {
+        transform: translateX(0);
+        box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+    }
+    .menu-toggle { display: block; }
+    .main-content { margin-left: 0; }
+    .hero { padding: 3.5rem 1.5rem 2.5rem; }
+    .hero h1 { font-size: 2rem; }
+}
+
+@media (max-width: 600px) {
+    html { font-size: 16px; }
+    .hero { padding: 3rem 1rem 2rem; }
+    .hero h1 { font-size: 1.6rem; }
+    .page-nav { flex-direction: column; }
+    .page-nav a { max-width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<button class="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
+
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <a href="../index.html">Ari's Big Five</a>
+    <span class="brand-sub">A thesis on the Nexus vault</span>
+  </div>
+  <nav><ul>
+    <li><a href="../index.html">Introduction</a></li>
+    <li><a href="../ch1.html"><span class="nav-label">Chapter 1</span>The Giant Within</a></li>
+    <li><a href="../ch2.html"><span class="nav-label">Chapter 2</span>Through, Not Around</a></li>
+    <li><a href="../ch3.html"><span class="nav-label">Chapter 3</span>The First Rule of Compounding</a></li>
+    <li><a href="../ch4.html"><span class="nav-label">Chapter 4</span>The Thrower Adapts</a></li>
+    <li><a href="../ch5.html"><span class="nav-label">Chapter 5</span>Love in Finite Time</a></li>
+    <li><a href="../conclusion.html">Conclusion & Further Reading</a></li>
+  </ul></nav>
+  <div class="sidebar-ref-link">
+    <a href="../references/index.html">Source Notes (43) &rarr;</a>
+  </div>
+</aside>
+
+<div class="main-content">
+
+<div class="back-link-bar">
+    <a href="../ch3.html">&larr; Back to Chapter 3: The First Rule of Compounding</a>
+</div>
+
+<div class="note-content">
+    <h2>Investment Philosophy</h2>
+    <p>&lt;context&gt;Core investment principles and philosophy for client conversations.&lt;/context&gt;</p>
+<h1>Investment Philosophy</h1>
+<h2>Core Principles</h2>
+<ul>
+<li><strong>Invest in what has always worked</strong> - not &quot;what's working now&quot;</li>
+<li><strong>You need to work the plan or the plan won't work</strong></li>
+<li><strong>Don't try to outsmart the market</strong></li>
+<li><strong>Avoiding mistakes is better than demonstrating brilliance</strong></li>
+<li><strong>It's better to be roughly right than precisely wrong</strong></li>
+</ul>
+<blockquote>
+<p>&quot;It is better to be roughly right than precisely wrong.&quot; This principle traces back to John Maynard Keynes and was popularised in investing by Warren Buffett. The pursuit of false precision in financial modelling often leads to worse outcomes than approximate wisdom applied consistently. — Burton Malkiel, <em>A Random Walk Down Wall Street</em> (1973)</p>
+</blockquote>
+<h2>The Investor Matters Most</h2>
+<blockquote>
+<p>&quot;Understand that you are a much bigger determinant on your investment returns than the investments themselves.&quot;</p>
+</blockquote>
+<blockquote>
+<p>&quot;Good investors can do OK with bad investments. Bad investors can't do anything with good investments.&quot;</p>
+</blockquote>
+<h2>On Volatility</h2>
+<blockquote>
+<p>&quot;Volatility is a feature not a bug&quot;</p>
+</blockquote>
+<blockquote>
+<p>&quot;Far more money has been lost by investors trying to anticipate corrections, than lost in the corrections themselves&quot; - Peter Lynch</p>
+</blockquote>
+<blockquote>
+<p>Research from Dalbar's Quantitative Analysis of Investor Behavior consistently shows that average equity fund investors underperform the S&amp;P 500 by 3-4% annually, largely due to mistimed exits and entries around volatility. The cost of avoiding the market's ten best days over a 20-year period can cut total returns by more than half. — Peter Lynch, <em>One Up on Wall Street</em> (1989)</p>
+</blockquote>
+<h2>On Loss Aversion</h2>
+<blockquote>
+<p>&quot;Professor Eric Johnson on hyper loss aversion: after no paycheck, people feel loss ten times as much as they would otherwise.&quot; — Tim</p>
+</blockquote>
+<blockquote>
+<p>&quot;Dying too young vs living too long. Insurance vs investments.&quot; — Tim</p>
+</blockquote>
+<h2>Plan B</h2>
+<blockquote>
+<p>&quot;Have a solid plan B. Some sacrifice of plan A outcomes are justified to ensure a suitable plan B.&quot;</p>
+</blockquote>
+<blockquote>
+<p>Nassim Taleb calls this &quot;antifragility&quot; -- building systems that benefit from disorder rather than merely surviving it. The best financial plans aren't optimised for the best case; they're robust against the worst case. Sacrificing some upside to protect against ruin is not conservative -- it is rational. — Nassim Nicholas Taleb, <em>Antifragile: Things That Gain from Disorder</em> (2012)</p>
+</blockquote>
+<h2>Liability Driven Investing</h2>
+<p>Match risk to the requirement:</p>
+<ul>
+<li>If your kid is already in private school - must happen, low risk</li>
+<li>Kid not born yet - more flexibility, can take more risk</li>
+</ul>
+<blockquote>
+<p>&quot;I won't put the money in geared growth fund if your kid's private school is mandatory. If it's a nice to have, then cool.&quot;</p>
+</blockquote>
+<h2>The Car Analogy</h2>
+<blockquote>
+<p>&quot;Over the long term the market will provide more Lexuses than Toyotas. But if you must have a car in one year's time, it's going to be one or the other. Must be Yaris, could be Lexus.&quot;</p>
+</blockquote>
+<h2>Why Markets Work</h2>
+<blockquote>
+<p>&quot;So long as people want stuff, people will make stuff. They will find ways to add value. Like turning dirt into a water bottle. One is more valuable than the other. It took assets to make, there was a profit to be had, and the benefits were shared by the owners. That's a share market.&quot; — Tim</p>
+</blockquote>
+<blockquote>
+<p>&quot;The nature of exchange may vary, but as long as the entire population doesn't suddenly become monks, markets will exist. People will find ways to take inputs and convert them to better output, and make a profit. The world will keep spinning, and we all may as well participate. As both consumers and owners.&quot; — Tim</p>
+</blockquote>
+<h2>On Market Cycles and Bubbles</h2>
+<blockquote>
+<p>&quot;Bubbles don't pop when everyone is saying we are in a bubble. History shows that there's often 20-30% left to run. When bubbles pop is when everyone starts saying 'maybe we are in a new reality'.&quot; — Tim, <a href="conference25.html" class="ref">Conference25</a></p>
+</blockquote>
+<blockquote>
+<p>&quot;Like 1997, everyone has consensus that we were in an internet bubble, and then the Nasdaq went up another 100%. It's when we all decide we're in a new normal that you need to watch out.&quot; — Tim, <a href="conference25.html" class="ref">Conference25</a></p>
+</blockquote>
+<blockquote>
+<p>&quot;Dot com bubble wasn't wrong, it was just early.&quot; — <a href="conference25.html" class="ref">Conference25</a></p>
+</blockquote>
+<blockquote>
+<p>&quot;Prices at Coles and Woolies are also at an all time high. Do we not buy?&quot; — Tim, <a href="conference25.html" class="ref">Conference25</a></p>
+</blockquote>
+<h2>On Cash Reserves</h2>
+<blockquote>
+<p>&quot;Your return on cash can be far higher than 3% - if it means you avoid selling in a crisis, your return can be 20-30%. And let alone the sleep at night factor and the confidence it gives you. Your return on reserves can be the highest in the whole lot.&quot; — Tim, <a href="conference25.html" class="ref">Conference25</a></p>
+</blockquote>
+<h2>On Diversification</h2>
+<blockquote>
+<p>&quot;You don't want good bets, you want good diversification of bets.&quot; — <a href="conference25.html" class="ref">Conference25</a></p>
+</blockquote>
+<blockquote>
+<p>Harry Markowitz demonstrated that a diversified portfolio can achieve better risk-adjusted returns than any single asset, famously calling diversification &quot;the only free lunch in finance.&quot; The mathematics proved what Tim's forest metaphor captures intuitively: you don't need every tree to thrive -- you need the forest to stand. — Harry Markowitz, &quot;Portfolio Selection,&quot; <em>The Journal of Finance</em> (1952)</p>
+</blockquote>
+<blockquote>
+<p>&quot;Trees don't grow to heaven and some fall down, so you may as well buy the forest.&quot; — Tim</p>
+</blockquote>
+<blockquote>
+<p>&quot;Investing is like riding an escalator with a yoyo in your hand. The goal is to focus on the escalator and not the yoyo.&quot; — Tim</p>
+</blockquote>
+<h2>On Wealth Building</h2>
+<blockquote>
+<p>&quot;Wealth comes from smart allocation of capital. Step one - find capital. Step two - put it somewhere. Step three - add to it regularly.&quot; — Tim, <a href="conference25.html" class="ref">Conference25</a></p>
+</blockquote>
+<blockquote>
+<p>&quot;You get rich with assets, not income.&quot; — Tim, <a href="conference25.html" class="ref">Conference25</a></p>
+</blockquote>
+<blockquote>
+<p>&quot;Fortunes are created by taking huge risks with not much money. Fortunes are preserved by taking small risks with huge amounts of money.&quot;</p>
+</blockquote>
+<blockquote>
+<p>&quot;Compounding is get rich, and stay richer. But it only works when you take a long term perspective. You can't interrupt the compounding process.&quot;</p>
+</blockquote>
+<blockquote>
+<p>&quot;The first rule of compounding: never interrupt it unnecessarily.&quot; Warren Buffett's Berkshire Hathaway generated over 3,700,000% returns from 1965 to 2023 -- not through brilliant timing but through uninterrupted duration. More than 99% of Buffett's net worth came after his 50th birthday. Time in the market is the single most underrated variable in wealth creation. — Morgan Housel, <em>The Psychology of Money</em> (2020)</p>
+</blockquote>
+<blockquote>
+<p>&quot;Money isn't made in the buy or the sell. It's made in the wait.&quot; — Charlie Munger</p>
+</blockquote>
+<blockquote>
+<p>&quot;Invest in preparedness, not prediction.&quot; — Tim</p>
+</blockquote>
+<blockquote>
+<p>&quot;Don't be the first investor, be a fast follower.&quot; — Andrew Inwood, <a href="conference25.html" class="ref">Conference25</a></p>
+</blockquote>
+<h2>On Saving vs Investing</h2>
+<blockquote>
+<p>&quot;There's no investment that can substitute for not saving. You need to give it something to compound.&quot; — Tim</p>
+</blockquote>
+<blockquote>
+<p>&quot;I've seen people change their life from saving and being boring. I've seen people expect the investment to do the heavy lifting, spend all their time and focus on finding the next big thing, and stay in the same place for years.&quot; — Tim</p>
+</blockquote>
+<p>The unglamorous truth: saving comes first. The compounding machine needs fuel, and that fuel is consistent contribution, not clever stock picks.</p>
+<blockquote>
+<p>&quot;Do not save what is left after spending, but spend what is left after saving.&quot; Vanguard's research found that a disciplined savings rate is the single largest controllable factor in retirement outcomes -- more impactful than asset allocation, fund selection, or market timing combined. — John C. Bogle, <em>The Little Book of Common Sense Investing</em> (2007)</p>
+</blockquote>
+<h2>On Dollar-Cost Averaging as a Life Principle</h2>
+<blockquote>
+<p>&quot;DCA in your personal life. Keep the faith, keep doing the right things when you're down. Good times roll, but the bad times need faith. Like investing regardless of how we feel. That's DCA in life. Apply DCA everywhere. Better ROI in all areas of life. Put in the input, regardless of how we feel. Keep the averages, the run rate, up.&quot; — Tim</p>
+</blockquote>
+<p>Dollar-cost averaging isn't just an investment strategy. It's a philosophy: consistent inputs regardless of conditions. In health, relationships, career -- the same principle applies. Don't binge when you feel good and quit when you don't.</p>
+<h2>On Spending Alignment</h2>
+<blockquote>
+<p>&quot;Not 'can we still afford it' but 'does it still align with what we value now?'&quot; — Tim</p>
+</blockquote>
+<p>A powerful reframe for review meetings. The question isn't whether the money is there -- it's whether the purpose is still there.</p>
+<h2>On Liquidity and Leverage</h2>
+<blockquote>
+<p>&quot;My partner Charlie says there are only three ways a smart person can go broke — liquor, ladies, and leverage. Now the truth is, the first two he only added because they started with L.&quot; — Warren Buffett</p>
+</blockquote>
+<h2>On Risk-Adjusted Returns</h2>
+<h3>The Sharpe Ratio</h3>
+<blockquote>
+<p>&quot;Sharpe is the number of standard deviations by which the portfolio's return must fall in order to underperform the risk free rate. It represents the additional amount of return that an investor receives per unit of increase in risk.&quot;</p>
+</blockquote>
+<p>In plain terms: how much extra return are you getting for each unit of risk you're taking? A higher Sharpe ratio means better compensation for the uncertainty you're accepting.</p>
+<h2>Key Economists</h2>
+<ul>
+<li>Harry Markowitz</li>
+<li>William Sharpe</li>
+<li>Eugene Fama</li>
+</ul>
+<h2>Recognised Sources</h2>
+<blockquote>
+<p>&quot;The intelligent investor is a realist who sells to optimists and buys from pessimists.&quot; — Benjamin Graham, <em>The Intelligent Investor</em> (1949)</p>
+</blockquote>
+<blockquote>
+<p>&quot;It's not about getting it right; it's about not getting it wrong.&quot; — Howard Marks, <em>The Most Important Thing</em> (2011)</p>
+</blockquote>
+<hr />
+
+
+</div>
+
+<div class="page-nav" style="max-width:720px;margin:2rem auto;padding:0 1.5rem;">
+    <a href="index.html" class="prev">All Source Notes</a>
+    <a href="../ch3.html" class="next">Back to Chapter 3</a>
+</div>
+
+<footer class="footer">
+    <p>From Tim's personal knowledge vault (TheNexus3.0).</p>
+    <p><a href="../index.html">&larr; Back to Ari's Big Five</a></p>
+</footer>
+
+</div>
+
+
+<script>
+document.querySelector('.menu-toggle').addEventListener('click', function() {
+    document.querySelector('.sidebar').classList.toggle('open');
+});
+document.querySelector('.main-content').addEventListener('click', function() {
+    document.querySelector('.sidebar').classList.remove('open');
+});
+</script>
+
+</body>
+</html>
