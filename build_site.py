@@ -774,7 +774,7 @@ def build_main_pages(sections):
         ch_body = f'''
 <header class="hero">
     <h1>{CHAPTER_TITLES[ch]}</h1>
-    <p class="subtitle">Chapter {CHAPTER_WORDS[ch]} — {CHAPTER_SUBS[ch]}</p>
+    <p class="subtitle">Chapter {CHAPTER_WORDS[ch]} - {CHAPTER_SUBS[ch]}</p>
 </header>
 
 <div class="chapter-content">
@@ -801,7 +801,7 @@ def build_main_pages(sections):
         ch_body = ch_body.replace('</article>', '')
 
         write_page(ROOT / f"ch{ch}.html",
-                   f"Chapter {ch}: {CHAPTER_TITLES[ch]} — Ari's Big Five",
+                   f"Chapter {ch}: {CHAPTER_TITLES[ch]} - Ari's Big Five",
                    ch_body, f"ch{ch}.html")
 
     # 7. Conclusion + Further Reading
@@ -832,13 +832,14 @@ def build_main_pages(sections):
     conclusion_body = conclusion_body.replace('</section>', '')
 
     write_page(ROOT / "conclusion.html",
-               "Conclusion — Ari's Big Five",
+               "Conclusion - Ari's Big Five",
                conclusion_body, "conclusion.html")
 
 
 def write_page(path, title, body, active_href, is_subdir=False, desc=""):
     path.parent.mkdir(parents=True, exist_ok=True)
     html = page_template(title, body, active_href, is_subdir, desc)
+    html = normalize_dashes(html)
     path.write_text(html, encoding='utf-8')
     print(f"  wrote {path.relative_to(ROOT)}")
 
@@ -855,6 +856,31 @@ def strip_version_notes(content):
 def remove_see_also(html):
     """Remove 'See also:' paragraphs."""
     return re.sub(r'<p>See also:.*?</p>', '', html, flags=re.DOTALL)
+
+
+def normalize_dashes(html):
+    """Replace em-dashes and double hyphens with single hyphens in content.
+
+    Preserves CSS custom properties (--var-name) and HTML comments.
+    Tim uses single hyphens consistently.
+    """
+    # Replace &mdash; entity
+    html = html.replace('&mdash;', '-')
+    # Replace literal em-dash character
+    html = html.replace('\u2014', '-')
+    # Replace en-dash character
+    html = html.replace('\u2013', '-')
+    # Replace double hyphens in content, but NOT in CSS (-- as custom properties)
+    # or HTML comments. We do this by splitting on <style> blocks and only
+    # replacing in non-style content.
+    parts = re.split(r'(<style>.*?</style>|<!--.*?-->)', html, flags=re.DOTALL)
+    for i, part in enumerate(parts):
+        if not part.startswith('<style>') and not part.startswith('<!--'):
+            # Replace " -- " with " - " (spaced double-hyphen)
+            parts[i] = part.replace(' -- ', ' - ')
+            # Replace remaining double-hyphens not in CSS context
+            parts[i] = re.sub(r'(?<!-)--(?![->\w])', '-', parts[i])
+    return ''.join(parts)
 
 
 def fix_poem_line_breaks(html):
@@ -963,7 +989,7 @@ def build_reference_pages():
 '''
         write_page(
             REF_DIR / f"{slug}.html",
-            f"{name} — Ari's Big Five",
+            f"{name} - Ari's Big Five",
             body, None, is_subdir=True,
             desc=f"Source note: {name}"
         )
@@ -1005,7 +1031,7 @@ def build_reference_pages():
 '''
     write_page(
         REF_DIR / "index.html",
-        "Further Reading — Ari's Big Five",
+        "Further Reading - Ari's Big Five",
         index_body, None, is_subdir=True,
         desc="43 source notes from the Nexus vault referenced in Ari's Big Five."
     )
