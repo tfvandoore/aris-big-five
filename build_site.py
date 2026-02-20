@@ -1025,6 +1025,10 @@ def build_reference_pages():
 {''.join(toc_html_parts)}
 </div>
 
+<div style="text-align:center; margin: 2rem 0;">
+    <a href="updates.html" style="font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 0.85rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 0.2rem;">View update history &rarr;</a>
+</div>
+
 <footer class="footer">
     <p>These notes are from Tim's personal knowledge vault (TheNexus3.0).
     They represent years of collected wisdom, experience, and reflection.</p>
@@ -1036,6 +1040,64 @@ def build_reference_pages():
         "Further Reading - Ari's Big Five",
         index_body, None, is_subdir=True,
         desc="43 source notes from the Nexus vault referenced in Ari's Big Five."
+    )
+
+
+# ── Updates page ─────────────────────────────────────────────────────
+UPDATES_LOG = [
+    ("2026-02-20", "The Neck Doesn't Look Back Either", [
+        "Expanded <strong>The Giant Is You</strong> concept with the backward-looking dimension of the neck problem - the neck doesn't just look up (comparison), it also fails to look back (amnesia about growth, lessons, and scars).",
+        "Added new section to <strong>Chapter 1: The Giant Within</strong> exploring three directions the neck fails: up (comparison that shrinks you), back (amnesia that robs confidence and gratitude), and around (blindness to who you can serve).",
+        "Connected the backward look to <a href='the-big-mountain.html' class='ref'>The big mountain</a> ('confidence comes from the past'), <a href='character-comes-from-imperfections.html' class='ref'>Character comes from imperfections</a> (gold in the cracks), <a href='temporal-love.html' class='ref'>Temporal Love</a> (love performed in time), and <a href='seasons-of-life.html' class='ref'>Seasons of Life</a> (seasons already lived).",
+        "Added temporal connection to <strong>Chapter 5: Love in Finite Time</strong> - the backward look as evidence of a life well-lived with family.",
+        "Updated conclusion diamond summary and observations to reflect the three-directional neck problem.",
+        "Updated <a href='the-giant-is-you.html' class='ref'>The Giant Is You</a> source note with new section and research on autobiographical reasoning.",
+    ]),
+    ("2026-02-18", "Initial publication", [
+        "Published Ari's Big Five - a thesis on the five most valuable ideas in the Nexus vault.",
+        "Five chapters covering identity, adversity, compounding, trust, and love in finite time.",
+        "43 source notes from the vault, each with original thinking enriched by research.",
+    ]),
+]
+
+
+def build_updates_page():
+    """Generate the updates changelog page."""
+    entries_html = []
+    for date, title, items in UPDATES_LOG:
+        items_html = '\n'.join(f'        <li>{item}</li>' for item in items)
+        entries_html.append(f'''
+<div class="ref-chapter-group">
+    <div class="ref-chapter-label">{date}</div>
+    <h3 style="margin-top: 0.5rem; margin-bottom: 0.75rem;">{title}</h3>
+    <ul style="padding-left: 1.2rem; margin-bottom: 0;">
+{items_html}
+    </ul>
+</div>''')
+
+    body = f'''
+<header class="hero">
+    <h1>Updates</h1>
+    <p class="subtitle">Changes and additions to Ari's Big Five</p>
+</header>
+
+<div class="back-link-bar" style="margin-top:1.5rem;">
+    <a href="index.html">&larr; Back to Further Reading</a>
+</div>
+
+<div class="ref-grid" style="margin-top:2rem;">
+{''.join(entries_html)}
+</div>
+
+<footer class="footer">
+    <p><a href="../index.html">&larr; Back to Ari's Big Five</a></p>
+</footer>
+'''
+    write_page(
+        REF_DIR / "updates.html",
+        "Updates - Ari's Big Five",
+        body, None, is_subdir=True,
+        desc="Update history for Ari's Big Five."
     )
 
 
@@ -1060,7 +1122,10 @@ def main():
     print("\nBuilding reference pages...")
     build_reference_pages()
 
-    print(f"\nDone! Generated 7 main pages + 44 reference pages.")
+    print("\nBuilding updates page...")
+    build_updates_page()
+
+    print(f"\nDone! Generated 7 main pages + 44 reference pages + updates page.")
 
 
 if __name__ == '__main__':
