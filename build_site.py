@@ -857,6 +857,23 @@ def remove_see_also(html):
     return re.sub(r'<p>See also:.*?</p>', '', html, flags=re.DOTALL)
 
 
+def fix_poem_line_breaks(html):
+    """Convert soft newlines inside <p> blocks to <br> for poem formatting.
+
+    Targets paragraphs where every line ends with a rhyming/poetic pattern
+    (lines within a single <p> separated only by newlines). This handles the
+    Good Timber poem and any similar poetry in reference notes.
+    """
+    def add_breaks(m):
+        content = m.group(1)
+        # Only apply to blocks with 4+ lines (likely a poem stanza)
+        lines = content.strip().split('\n')
+        if len(lines) >= 4:
+            return '<p>' + '<br>\n'.join(lines) + '</p>'
+        return m.group(0)
+    return re.sub(r'<p>((?:[^\n<]+\n){3,}[^\n<]+)</p>', add_breaks, html)
+
+
 def remove_context_and_duplicate_heading(html, note_name):
     """Remove <context>...</context> paragraphs and duplicate h1 heading."""
     # Remove <p>&lt;context&gt;...&lt;/context&gt;</p>
@@ -917,6 +934,7 @@ def build_reference_pages():
         html_content = remove_broken_ref_links(html_content)
         html_content = remove_see_also(html_content)
         html_content = remove_context_and_duplicate_heading(html_content, name)
+        html_content = fix_poem_line_breaks(html_content)
         html_content = fix_ref_links_from_subdir(html_content)
 
         # Determine which chapter page links back
