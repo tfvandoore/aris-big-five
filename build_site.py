@@ -904,8 +904,10 @@ def remove_context_and_duplicate_heading(html, note_name):
     """Remove <context>...</context> paragraphs and duplicate h1 heading."""
     # Remove <p>&lt;context&gt;...&lt;/context&gt;</p>
     html = re.sub(r'<p>&lt;context&gt;.*?&lt;/context&gt;</p>\s*', '', html, flags=re.DOTALL)
-    # Remove the first <h1> that duplicates the note title (already shown as <h2>)
-    html = re.sub(r'<h1>' + re.escape(note_name) + r'</h1>\s*', '', html, count=1)
+    # Remove the first <h1> - it always duplicates the note title which is
+    # already shown as the page <h2>. We remove any first <h1> since the
+    # template provides the title. Handles case/punctuation/apostrophe variants.
+    html = re.sub(r'<h1>[^<]+</h1>\s*', '', html, count=1)
     return html
 
 
